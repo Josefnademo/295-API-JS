@@ -10,10 +10,22 @@ const weatherData = [
 ];
 
 // Solution utilisant le paradigme procédurale
-// A VOUS DE COMPLETER ICI
+/*if( temperature >= 35){
+weatherData.forEach((element => (temperature >= 35)){
+  console.log(date);
+  
+});
+}*/
+//const hotDays = [];
+for(let day of weatherData){
+  if (day.temperature>= 35){
+hotDays.push(day);
+  }
+}
 
 // Solution utilisant le paradigme fonctionnel
 // A VOUS DE COMPLETER ICI
+const hotDays= weatherData.filter(day=> day.temperature>=35 );
 
 console.log(`Les jours de canicules sont : ${hotDays.map((day) => day.date)}`);
 // Les jours de canicules sont : 01-02-2021,01-03-2021,01-04-2021
