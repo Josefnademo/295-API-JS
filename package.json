@@ -1,0 +1,17 @@
+{
+  "name": "295-api",
+  "version": "1.0.0",
+  "main": "src/app.mjs",
+  "scripts": {
+    "start": "nodemon src/app.mjs"
+  },
+  "author": "Yosef Nademo",
+  "license": "ISC",
+  "description": "API REST to self-service-machine application",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
