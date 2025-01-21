@@ -16,5 +16,4 @@ const getUniqueId = (products) => {
   const maxId = productsIds.reduce((a, b) => Math.max(a, b));
   return maxId + 1;
 };
-
 export { success, getUniqueId };
