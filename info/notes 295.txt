@@ -1,0 +1,41 @@
+1) npm install --save avec option "--save-dev" sert a sert à installer les dépendences de ce qu'on installe dans les devDependencies
+qui sert de dépendence uniquement pour les developpeurs et pas pour la mise en production, ce sont des framework utiles uniquement aux devs qui seront delete une fois en production.
+
+2) type: module = permet d'indiquer 
+
+3) nodemon permet de redemarrer à chaud le serveur à chaque update du fichier, pour voir nos modifs en direct
+
+4) Est ce que l'on doit git commit / git push le répertoire node_modules ? Non car la liste des dépendances seront indiquées dans le package.json
+
+5) un module est un fichier js ou l'on exporte une fonction ou une constante etc..
+
+6) qu'est-ce qu'un middleware ? c'est un composant de code qui va intercepter une demande d'internet et va lui faire suivre un pre-traitement avant que la requête arrive dans le router
+ pour voir si ex: la personne a deja un compte créé
+
+7) avec le code : "app.use(express.json())" (express étant le framework et express.json étant le middleware contenu dans le framework) cela permet d'utiliser le middleware.
+
+8)prettier permet de Formater automatiquement le code pour garantir une cohérence
+
+9) la différence entre npm start et npm run start est que npm start est un raccourci de npm run start.
+
+10)Insomina permet de faire des requetes httpi pour tester les routes de notre backend.
+
+11)il faut utiliser la ligne de code "res.json()" pour retourner une donnée au format JSON.
+
+12)
+ 
+13)
+a) productId = req.param.id;
+b) product = products.find((productId) => product.id === productId);
+c) const message = `pelepelepele ${variable} pelepelepele`
+d) const result = { message : message, produit : product};
+e) 
+
+14) la ligne "const createdProduct = {...req.body, ...{id: id, created: new Date()}}" sert à stocker les valeurs de base d'un porduit (name et price) dans un nouvel objet (createdProduct) en pluis des attributs (id et created)
+
+15)
+a) products = products.filter((products) => products.id != productId);
+b) products = products.map(product) => product.id != productId ? updatedProduct : product 
+
+le "?" sert de if() et la condition est ce qui se situe avant et l'effet est ce qui se situe après, mais avant le ":", et le ":" est un else et l'effet se situe après.
+on pourrait écrire 

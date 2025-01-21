@@ -54,6 +54,7 @@ let products = [
     created: new Date(),
   },
 ];
+
 /**
  * Récupère le produit dont l'id vaut `productId`
  * @param {*} productId
@@ -88,4 +89,5 @@ const getUniqueId = () => {
   const uniqueId = maxId + 1;
   return uniqueId;
 };
+
 export { products, getProduct, removeProduct, updateProduct, getUniqueId };
