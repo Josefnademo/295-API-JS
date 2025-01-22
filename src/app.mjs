@@ -32,3 +32,23 @@ app.use("/api/products", productsRouter);
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);
 });
+
+// Si aucune route ne correspondant à l'URL demandée par le consommateur
+app.use((req, res) => {
+  const message =
+    "Impossible de trouver la ressource demandée ! Vous pouvez essayer une autre URL.";
+  res.status(404).json(message);
+});
+
+productsRouter.get("/", (req, res) => {
+  Product.findAll()
+    .then((products) => {
+      const message = "La liste des produits a bien été récupérée.";
+      res.json(success(message, products));
+    })
+    .catch((error) => {
+      const message =
+        "La liste des produits n'a pas pu être récupérée. Merci de réessayer dans quelques instants.";
+      res.status(500).json({ message, data: error });
+    });
+});
