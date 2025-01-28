@@ -11,6 +11,9 @@ const ProductModel = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: {
+          msg: "Ce nom est déjà pris.",
+        },
         validate: {
           is: {
             args: /^[A-Za-z\s]*$/,
@@ -36,6 +39,14 @@ const ProductModel = (sequelize, DataTypes) => {
           },
           notNull: {
             msg: "Le prix est une propriété obligatoire.",
+          },
+          min: {
+            args: [1.0],
+            msg: "Le prix doit être supérieur à 1$.",
+          },
+          max: {
+            args: [1000.0],
+            msg: "Le prix doit être inférieur à 1000$.",
           },
         },
       },

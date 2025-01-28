@@ -1,14 +1,39 @@
 import express from "express";
 import { Product } from "../db/sequelize.mjs";
 import { success } from "./helper.mjs";
+import { ValidationError, Op } from "sequelize";
 
 const productsRouter = express();
 
 productsRouter.get("/", (req, res) => {
-  Product.findAll().then((products) => {
-    const message = "La liste des produits a bien été récupérée.";
-    res.json(success(message, products));
-  });
+  if (req.query.name) {
+    if (req.query.name.length < 2) {
+      const message = `Le terme de la recherche doit contenir au moins 2 caractères`;
+      return res.status(400).json({ message });
+    }
+    let limit = 3;
+    if (req.query.limit) {
+      limit = parseInt(req.query.limit);
+    }
+    return Product.findAndCountAll({
+      where: { name: { [Op.like]: `%${req.query.name}%` } },
+      order: ["name"],
+      limit: limit,
+    }).then((products) => {
+      const message = `Il y a ${products.count} produits qui correspondent au terme de la recherche`;
+      res.json(success(message, products));
+    });
+  }
+  Product.findAll({ order: ["name"] })
+    .then((products) => {
+      const message = "La liste des produits a bien été récupérée.";
+      res.json(success(message, products));
+    })
+    .catch((error) => {
+      const message =
+        "La liste des produits n'a pas pu être récupérée. Merci de réessayer dans quelques instants.";
+      res.status(500).json({ message, data: error });
+    });
 });
 
 productsRouter.get("/:id", (req, res) => {
@@ -39,6 +64,9 @@ productsRouter.post("/", (req, res) => {
       res.json(success(message, createdProduct));
     })
     .catch((error) => {
+      if (error instanceof ValidationError) {
+        return res.status(400).json({ message: error.message, data: error });
+      }
       const message =
         "Le produit n'a pas pu être ajouté. Merci de réessayer dans quelques instants.";
       res.status(500).json({ message, data: error });
@@ -82,7 +110,7 @@ productsRouter.put("/:id", (req, res) => {
           return res.status(404).json({ message });
         }
         // Définir un message pour l'utilisateur de l'API REST
-        const message = `Le produit ${updatedProduct.name} dont l'id vaut ${updatedProduct.id} a été mis à jour avec success`;
+        const message = `Le produit ${updatedProduct.name} dont l'id vaut ${updatedProduct.id} a été mis à jour avec suc`;
         // Retourner la réponse HTTP en json avec le msg et le produit créé
         res.json(success(message, updatedProduct));
       });
