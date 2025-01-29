@@ -2,10 +2,11 @@ import express from "express";
 import { Product } from "../db/sequelize.mjs";
 import { success } from "./helper.mjs";
 import { ValidationError, Op } from "sequelize";
+import { auth } from "../auth/auth.mjs";
 
 const productsRouter = express();
 
-productsRouter.get("/", (req, res) => {
+productsRouter.get("/", auth, (req, res) => {
   if (req.query.name) {
     if (req.query.name.length < 2) {
       const message = `Le terme de la recherche doit contenir au moins 2 caractères`;

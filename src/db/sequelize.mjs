@@ -1,5 +1,7 @@
 import { Sequelize, DataTypes } from "sequelize";
+import bcrypt from "bcrypt";
 import { ProductModel } from "../models/products.mjs";
+import { UserModel } from "../models/user.mjs";
 
 const sequelize = new Sequelize(
   "db_products", // Nom de la DB qui doit exister
@@ -21,6 +23,7 @@ let initDb = () => {
     .sync({ force: true }) // Force la synchro => donc supprime les données également
     .then((_) => {
       importProducts();
+      importUsers();
       console.log("La base de données db_products a bien été synchronisée");
     });
 };
@@ -33,4 +36,17 @@ const importProducts = () => {
     }).then((product) => console.log(product.toJSON()));
   });
 };
+
+const importUsers = () => {
+  bcrypt
+    .hash("etml", 10) // temps pour hasher = du sel
+    .then((hash) =>
+      User.create({
+        username: "etml",
+        password: hash,
+      })
+    )
+    .then((user) => console.log(user.toJSON()));
+};
+
 export { sequelize, initDb, Product };

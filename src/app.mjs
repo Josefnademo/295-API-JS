@@ -1,11 +1,17 @@
 import express from "express";
 
+import { sequelize } from "./db/sequelize.mjs";
+import { initDb } from "./db/sequelize.mjs";
+
+import { productsRouter } from "./routes/products.mjs";
+app.use("/api/products", productsRouter);
+import { loginRouter } from "./routes/login.mjs";
+app.use("/api/login", loginRouter);
+
 const app = express(); //express framework
 app.use(express.json()); //middleware
 const port = 3000;
 
-import { sequelize } from "./db/sequelize.mjs";
-import { initDb } from "./db/sequelize.mjs";
 sequelize
   .authenticate()
   .then((_) =>
@@ -26,7 +32,6 @@ app.get("/api/", (req, res) => {
 
 //toutes les routes qui commancent avec /api/products, vont etre definir dans products.mjs
 //Этот импорт загружает объект productsRouter из файла products.mjs, который находится в папке routes
-import { productsRouter } from "./routes/products.mjs";
 app.use("/api/products", productsRouter);
 
 app.listen(port, () => {
