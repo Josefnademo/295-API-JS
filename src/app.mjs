@@ -7,6 +7,7 @@ import { productsRouter } from "./routes/products.mjs";
 app.use("/api/products", productsRouter);
 import { loginRouter } from "./routes/login.mjs";
 app.use("/api/login", loginRouter);
+import swaggerUi from "swagger-ui-express";
 
 const app = express(); //express framework
 app.use(express.json()); //middleware
@@ -19,6 +20,14 @@ sequelize
   )
   .catch((error) => console.error("Impossible de se connecter à la DB"));
 initDb();
+
+// Route pour accéder à la documentation Swagger
+//const specs = swaggerJsdoc(options);
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, { explorer: true })
+);
 
 //racine de depart, message
 app.get("/", (req, res) => {

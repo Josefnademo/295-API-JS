@@ -25,15 +25,14 @@ const monkey1 {
 ...
 }*/
 const monkey = {
-   ...information_part1, // Раскрываем свойства information_part1
-   ...information_part2  // Раскрываем свойства information_part2
+  ...information_part1, // Раскрываем свойства information_part1
+  ...information_part2, // Раскрываем свойства information_part2
 };
 
 console.log(monkey);
 console.log(monkey1);
 // doit afficher exactement cela
 // { id: 12, name: 'monkey', threat: 5, food: 'banana' }
-
 
 /*The spread (...) syntax allows an iterable, such as an array or string, to be expanded in places where zero 
 or more arguments (for function calls) or elements (for array literals) are expected. In an object literal,

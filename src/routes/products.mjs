@@ -6,6 +6,41 @@ import { auth } from "../auth/auth.mjs";
 
 const productsRouter = express();
 
+/**
+ * @swagger
+ * /api/products/:
+ * get:
+ * tags: [Products]
+ * security:
+ * - bearerAuth: []
+ * summary: Retrieve all products.
+ * description: Retrieve all products. Can be used to populate a select HTML tag.
+ * responses:
+ * 200:
+ * description: All products.
+ * content:
+ * application/json:
+ * schema:
+ * type: object
+ * properties:
+ * data:
+ * type: object
+ * properties:
+ * id:
+ * type: integer
+ * description: The product ID.
+ * example: 1
+ * name:
+ * type: string
+ * description: The product's name.
+ * example: Big Mac
+ * price:
+ * type: number
+ * description: The product's price.
+ * example: 5.99
+ *
+ */
+
 productsRouter.get("/", auth, (req, res) => {
   if (req.query.name) {
     if (req.query.name.length < 2) {
